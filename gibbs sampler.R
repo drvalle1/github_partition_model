@@ -1,8 +1,10 @@
 rm(list=ls(all=TRUE))
 set.seed(6)
 
-setwd('U:\\independent studies\\partition models\\no covariates')
+setwd('U:\\independent studies\\partition models\\no covariates\\github_partition_model')
 source('gibbs sampler functions.R')
+
+setwd('U:\\independent studies\\partition models\\no covariates')
 dat=read.csv('fake data.csv',as.is=T)
 
 max.regions=100
@@ -33,10 +35,10 @@ vec.phi=matrix(NA,ngibbs,max.regions)
 
 param=list(region.map=region.map)
 max.logl=-Inf
+
 for (i in 1:ngibbs){
   #how many distinct regions?
-  z=unique(param$region.map$centroid)
-  n=length(z)
+  n=length(centroid)
   print(c(i,n))
   
   tmp=update.regions(param)
@@ -46,7 +48,8 @@ for (i in 1:ngibbs){
   vec.n[i]=n
   
   ind=1:length(tmp$phi)
-  vec.centroids[i,ind]=sort(unique(param$region.map$centroid))
+  centroid=sort(unique(param$region.map$centroid))
+  vec.centroids[i,ind]=centroid
   vec.phi[i,ind]=tmp$phi
   
   if (tmp$prob>max.logl) {

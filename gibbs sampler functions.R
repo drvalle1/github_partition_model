@@ -94,4 +94,3 @@ birth=function(indinz){
   include=sample(indout,size=1)
   sort(c(indinz,include))
 }
-#---------------------------------------------------------------------------------------------------
